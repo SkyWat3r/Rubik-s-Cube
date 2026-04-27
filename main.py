@@ -1,12 +1,13 @@
 from colorama import *
 init(autoreset=True)
 
+from movement import *
 colors = {
     "WHITE": Fore.LIGHTWHITE_EX + "⬛ ",
     "YELLOW": Fore.LIGHTYELLOW_EX + "⬛ " ,
     "BLUE": Fore.LIGHTBLUE_EX + "⬛ ",
     "GREEN": Fore.LIGHTGREEN_EX + "⬛ ",
-    "ORANGE": Fore.LIGHTRED_EX + "⬛ ",
+    "ORANGE": Fore.YELLOW + "⬛ ",
     "RED": Fore.RED + "⬛ "
 }
 
@@ -18,12 +19,12 @@ cube = {
     "R": ["RED"] * 9,
     "O": ["ORANGE"] * 9
 }
-print("===================")
+#print("===================")
 #print(colors)
-print(cube)
-print("===================")
+#print(cube)
+#print("===================")
 
-order = "WGRBOY"
+order = "WOGRBY"
 
 def print_face_line(face, line):
     start = line * 3
@@ -43,39 +44,27 @@ def view_cube(cube):
 
     for line in range(3):
         print("      " + print_face_line(cube[order[5]], line))
+    print()
 
-#view_cube(cube)
+def str_to_list(str):
+    list = []
+    next = False
+
+    for i in range(len(str)):
+        if next:
+            next = False
+            continue
+        if i+1 < len(str) and str[i+1] == "'":
+            list.append(str[i]+ "'")
+            next = True
+        else:
+            list.append(str[i])
+    return list
 
 
-# {'W': ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'],
-# 'Y': ['YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'],
-# 'B': ['BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE'],
-# 'G': ['GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN'],
-# 'R': ['RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED'],
-# 'O': ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE']}
+#cube2 = {'W': ['WHITE', 'WHITE', 'ORANGE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'], 'Y': ['YELLOW', 'YELLOW', 'ORANGE', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'], 'B': ['ORANGE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE'], 'G': ['GREEN', 'GREEN', 'ORANGE', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN'], 'R': ['RED', 'RED', 'ORANGE', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED'], 'O': ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE']}
 
-# TO ->
+moves = "URD'URUD'UD'UR"
+serie_movement(str_to_list(moves), cube)
 
-# {'W': ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'],
-# 'Y': ['YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'],
-# 'B': ['BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'RED', 'RED', 'RED'],
-# 'G': ['GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'ORANGE', 'ORANGE', 'ORANGE'],
-# 'R': ['RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'GREEN', 'GREEN', 'GREEN'],
-# 'O': ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'BLUE', 'BLUE', 'BLUE']}
-
-cube2 = {'W': ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'], 'Y': ['YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'], 'B': ['BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'RED', 'RED', 'RED'], 'G': ['GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'ORANGE', 'ORANGE', 'ORANGE'], 'R': ['RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'GREEN', 'GREEN', 'GREEN'], 'O': ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'BLUE', 'BLUE', 'BLUE']}
-
-#view_cube(cube2)
-def movement_U(cube):
-
-    R, B, O, G = cube["R"][-3:], cube["B"][-3:], cube["O"][-3:], cube["G"][-3:]
-
-    cube["R"][-3:] = G
-    cube["B"][-3:] = R
-    cube["O"][-3:] = B
-    cube["G"][-3:] = O
-
-movement_U(cube2)
-movement_U(cube2)
-movement_U(cube2)
-view_cube(cube2)
+view_cube(cube)
