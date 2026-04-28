@@ -62,9 +62,26 @@ def str_to_list(str):
     return list
 
 
-#cube2 = {'W': ['WHITE', 'WHITE', 'ORANGE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'], 'Y': ['YELLOW', 'YELLOW', 'ORANGE', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'], 'B': ['ORANGE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE'], 'G': ['GREEN', 'GREEN', 'ORANGE', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN'], 'R': ['RED', 'RED', 'ORANGE', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED'], 'O': ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE']}
+cube2 = {'W': ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'],
+         'Y': ['YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'],
+         'B': ['BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE'],
+         'G': ['GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN'],
+         'R': ['RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED'],
+         'O': ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE']}
 
-moves = "URD'URUD'UD'UR"
-serie_movement(str_to_list(moves), cube)
+#voir le cube sans modif
+view_cube(cube2)
 
-view_cube(cube)
+#lui appliquer des moves randoms
+moves = ['B', "F'", "D'", 'F', "L'", 'D', 'U', "U'", "L'", 'R', 'F', "B'", "L'", 'B', 'B', 'B', "F'", 'R', "F'", 'B']
+print(moves)
+serie_movement(moves, cube2)
+view_cube(cube2)
+
+#trouver la solution sur un site internet
+solution = ["B", "U", "U", "R", "F'", "B", "B", "R", "R", "U", "U", "L", "B", "B", "U", "L", "D", "R", "R", "U", "F", "F", "B", "B", "L", "L", "U'", "F", "F", "D"]
+print(solution)
+serie_movement(solution, cube2)
+
+#cube normalement fini,
+view_cube(cube2)

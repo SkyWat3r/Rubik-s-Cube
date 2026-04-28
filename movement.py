@@ -1,3 +1,6 @@
+import random
+
+
 def test_movement_choice():
     import timeit
     import copy
@@ -51,7 +54,6 @@ def rotate_face(cube, face, direction):
         cube[f"{face}"][6] = save_cube[0]
         cube[f"{face}"][7] = save_cube[3]
         cube[f"{face}"][8] = save_cube[6]
-
 
 def movement_D(cube):
 
@@ -126,14 +128,90 @@ def movement_Rprime(cube):
 
     rotate_face(cube, "R", "L")
 
+def movement_F(cube):
+
+    W, R, Y, O = cube["W"][-3:], cube["R"][::3][::-1], cube["Y"][:3], cube["O"][2::3][::-1]
+
+    cube["W"][-3:] = O
+    cube["R"][::3] = W
+    cube["Y"][:3] = R
+    cube["O"][2::3] = Y
+
+    rotate_face(cube, "G", "R")
+
+def movement_Fprime(cube):
+
+    W, R, Y, O = cube["W"][-3:][::-1], cube["R"][::3], cube["Y"][:3][::-1], cube["O"][2::3]
+
+    cube["W"][-3:] = R
+    cube["R"][::3] = Y
+    cube["Y"][:3] = O
+    cube["O"][2::3] = W
+
+    rotate_face(cube, "G", "L")
+
+def movement_B(cube):
+
+    W, R, Y, O = cube["W"][:3][::-1], cube["R"][2::3], cube["Y"][-3:][::-1], cube["O"][::3]
+
+    cube["W"][:3] = R
+    cube["R"][2::3] = Y
+    cube["Y"][-3:] = O
+    cube["O"][::3] = W
+
+    rotate_face(cube, "B", "R")
+
+def movement_Bprime(cube):
+
+    W, R, Y, O = cube["W"][:3], cube["R"][2::3][::-1], cube["Y"][-3:], cube["O"][::3][::-1]
+
+    cube["W"][:3] = O
+    cube["R"][2::3] = W
+    cube["Y"][-3:] = R
+    cube["O"][::3] = Y
+
+    rotate_face(cube, "B", "L")
+
+def movement_L(cube):
+
+    W, G, Y, B = cube["W"][::3], cube["G"][::3], cube["Y"][::3][::-1], cube["B"][2::3][::-1]
+
+    cube["W"][::3] = B
+    cube["G"][::3] = W
+    cube["Y"][::3] = G
+    cube["B"][2::3] = Y
+
+    rotate_face(cube, "O", "R")
+
+def movement_Lprime(cube):
+
+    W, G, Y, B = cube["W"][::3][::-1], cube["G"][::3], cube["Y"][::3], cube["B"][2::3][::-1]
+
+    cube["W"][::3] = G
+    cube["G"][::3] = Y
+    cube["Y"][::3] = B
+    cube["B"][2::3] = W
+
+    rotate_face(cube, "O", "L")
+
 def serie_movement(List, cube):
 
-    movements = {"D": movement_D, "D'": movement_Dprime, "U": movement_U, "U'": movement_Uprime, "R": movement_R, "R'": movement_Rprime}
+    movements = {"D": movement_D, "D'": movement_Dprime,
+                 "U": movement_U, "U'": movement_Uprime,
+                 "R": movement_R, "R'": movement_Rprime,
+                 "F": movement_F, "F'": movement_Fprime,
+                 "B": movement_B, "B'": movement_Bprime,
+                 "L": movement_L, "L'": movement_Lprime}
     #[R, U, R, D']
     for move in List:
         movements[move](cube)
 
     return cube
 
-
-
+def random_movement(number):
+    from random import randint
+    available_moves = ["D", "D'", "U", "U'", "R", "R'", "F", "F'", "B", "B'", "L", "L'"]
+    result_moves = []
+    for i in range(number):
+        result_moves.append(available_moves[random.randint(0, len(available_moves))])
+    return result_moves
